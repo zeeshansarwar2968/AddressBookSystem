@@ -17,7 +17,8 @@ namespace AddressBookSystem
         public int zip;
         public long phoneNumber;
         public string email;
-        //int contact = 0;
+        public AddressBook[] ContactArray;
+        int contact = 0;
 
 
         //Parameterised Constructor to setup contacts
@@ -34,18 +35,20 @@ namespace AddressBookSystem
 
         }
 
-        public void displayContact()
+        //Default Contructor
+        public AddressBook()
         {
-            Console.WriteLine("---------------------------------------------------------");
-            Console.WriteLine("Name : {0} {1}",firstName, lastName);
-            Console.WriteLine("Address: "+Address);
-            Console.WriteLine("City : "+ city);
-            Console.WriteLine("State : " + state);
-            Console.WriteLine("ZipCode : " + zip);
-            Console.WriteLine("Phone Number : " + phoneNumber);
-            Console.WriteLine("Email ID : " + email );
-            Console.WriteLine("---------------------------------------------------------");
+            this.ContactArray = new AddressBook[10];
+        }
 
+        //To add Contact to Address Book
+        public void CreateContact(string firstName, string lastName, string Address, string city, string state, int zip, long phoneNumber, string email)
+        {
+
+            ContactArray[this.contact] = new AddressBook(firstName, lastName, Address, city, state, zip, phoneNumber, email);
+            contact++;
+            AddBooks obj = new AddBooks();
+            obj.Display(ContactArray, contact);
         }
 
     }

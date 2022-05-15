@@ -16,7 +16,7 @@ namespace AddressBookSystem
 
             //Create object for Class
             AddressBook addressBookSystem = new AddressBook();
-            Console.Write("Enter number of Contacts to Add");
+            Console.Write("Please Enter number of Contacts to Add : ");
             int contacts = Convert.ToInt32(Console.ReadLine());
 
             //Input contacts values from user
@@ -49,7 +49,15 @@ namespace AddressBookSystem
                 addressBookSystem.CreateContact(firstname, lastname, address, city, state, pincode, phone, email);
                 contacts--;
             }
-            
+
+            //Check if any modification needed
+            Console.WriteLine("Do you want to Modify?(Y/N)");
+            char ch = Convert.ToChar(Console.ReadLine());
+            if (ch == 'Y')
+            {
+                addressBookSystem.Modify();
+            }
+
         }
         public void Display(AddressBook[] ContactArray, int N)
         {

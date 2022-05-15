@@ -9,3 +9,5 @@ Th following are the branches as well as progression tracker :
 2. [UC2] : Ability to add a new Contact to Address Book
 
 3. [UC3] : Ability to edit existing contact person using their name
+
+4. [UC4] : Ability to delete existing contact person using the person's name

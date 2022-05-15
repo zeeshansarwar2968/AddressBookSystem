@@ -64,7 +64,7 @@ namespace AddressBookSystem
                 i++;
             }
 
-            Console.WriteLine("Enter field to be modified \n1.firstName \n2.lastName \n3.Address \n4.city \n5.state \n6.zip \n7.phoneNumber \n8.email");
+            Console.WriteLine("Enter field to be modified \n1.firstName \n2.lastName \n3.Address \n4.city \n5.state \n6.zip \n7.phoneNumber \n8.email \n9.Delete the contact");
             int ch = Convert.ToInt32(Console.ReadLine());
             switch (ch)
             {
@@ -107,6 +107,12 @@ namespace AddressBookSystem
                     Console.Write("Enter the modified value : ");
                     string email1 = Console.ReadLine();
                     ContactArray[i].email = email1;
+                    break;
+                
+                    //Delete a user from he contact list/book
+                case 9:
+                    ContactArray = ContactArray.Take(i).Concat(ContactArray.Skip(i + 1)).ToArray();
+                    contact--;
                     break;
                 default:
                     Console.WriteLine("Invalid Option");

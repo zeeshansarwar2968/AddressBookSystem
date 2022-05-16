@@ -53,7 +53,7 @@ namespace AddressBookSystem
             //Check if any modification needed
             Console.WriteLine("Do you want to Modify?(Y/N)");
             char ch = Convert.ToChar(Console.ReadLine());
-            if (ch == 'Y')
+            if (ch == 'Y' || ch =='y')
             {
                 addressBookSystem.Modify();
             }

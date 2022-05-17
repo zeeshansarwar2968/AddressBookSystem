@@ -17,7 +17,7 @@ namespace AddressBookSystem
         public int zip;
         public long phoneNumber;
         public string email;
-        public AddressBook[] ContactArray;  //delclaration of an array to store class instances
+        public AddressBook[] ContactArray;  //declaration of an array to store class instances
         int contact = 0;
 
 
@@ -41,7 +41,7 @@ namespace AddressBookSystem
             this.ContactArray = new AddressBook[10];
         }
 
-        //To add Contact to Address Book
+        //Function defining functionality to add a Contact to Address Book
         public void CreateContact(string firstName, string lastName, string Address, string city, string state, int zip, long phoneNumber, string email)
         {
 
@@ -51,6 +51,8 @@ namespace AddressBookSystem
             obj.Display(ContactArray, contact);
         }
 
+
+        //Method to add contact modification/deletion functionality
         public void Modify()
         {
             //User enters field to Modify

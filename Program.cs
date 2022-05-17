@@ -14,35 +14,35 @@ namespace AddressBookSystem
             //Console.WriteLine("Enter name of addressBook");
             //string addrBookName = Console.ReadLine();
 
-            //Create object for Class
+            //Create object addressBookSystem for Class AddressBook
             AddressBook addressBookSystem = new AddressBook();
-            Console.Write("Please Enter number of Contacts to Add : ");
+            Console.Write("\nPlease Enter number of Contacts to Add : ");
             int contacts = Convert.ToInt32(Console.ReadLine());
 
-            //Input contacts values from user
+            //Input contact values from user
             while (contacts > 0)
             {
-                Console.Write("Enter Firstname : ");
+                Console.Write("\nEnter Firstname : ");
                 string firstname = Console.ReadLine();
-                Console.Write("Enter Lastname : ");
+                Console.Write("\nEnter Lastname : ");
                 string lastname = Console.ReadLine();
 
-                Console.Write("Enter Address : ");
+                Console.Write("\nEnter Address : ");
                 string address = Console.ReadLine();
 
-                Console.Write("Enter City : ");
+                Console.Write("\nEnter City : ");
                 string city = Console.ReadLine();
 
-                Console.Write("Enter State : ");
+                Console.Write("\nEnter State : ");
                 string state = Console.ReadLine();
 
-                Console.Write("Enter pincode : ");
+                Console.Write("\nEnter pincode : ");
                 int pincode = Convert.ToInt32(Console.ReadLine());
 
-                Console.Write("Enter PhoneNumber : ");
+                Console.Write("\nEnter PhoneNumber : ");
                 long phone = Convert.ToInt64(Console.ReadLine());
 
-                Console.Write("Enter Email : ");
+                Console.Write("\nEnter Email : ");
                 string email = Console.ReadLine();
 
                 //Call Method
@@ -50,7 +50,7 @@ namespace AddressBookSystem
                 contacts--;
             }
 
-            //Check if any modification needed
+            //Check if any modification is needed in the built addressbook
             Console.WriteLine("Do you want to Modify?(Y/N)");
             char ch = Convert.ToChar(Console.ReadLine());
             if (ch == 'Y' || ch =='y')
@@ -59,6 +59,8 @@ namespace AddressBookSystem
             }
 
         }
+
+        //method to display the contactbook
         public void Display(AddressBook[] ContactArray, int N)
         {
             Console.WriteLine("---------Address Book Contains---------");

@@ -10,53 +10,75 @@ namespace AddressBookSystem
             Console.WriteLine("\t\t\t\t\t Welcome to Address Book Program");
             Console.WriteLine("");
 
+            //Input an AddressBook name
+            Console.WriteLine("Enter number of AddressBook to create");
+            int num = Convert.ToInt32(Console.ReadLine());
+            int i = 0;
 
-            //Console.WriteLine("Enter name of addressBook");
-            //string addrBookName = Console.ReadLine();
+            //Create dictionary to store addressbook
+            IDictionary<string, AddressBook[]> numberNames = new Dictionary<string, AddressBook[]>();
 
-            //Create object addressBookSystem for Class AddressBook
-            AddressBook addressBookSystem = new AddressBook();
-            Console.Write("\nPlease Enter number of Contacts to Add : ");
-            int contacts = Convert.ToInt32(Console.ReadLine());
-
-            //Input contact values from user
-            while (contacts > 0)
+            //Runs till number of addressbook needs to be added
+            while (i < num)
             {
-                Console.Write("\nEnter Firstname : ");
-                string firstname = Console.ReadLine();
-                Console.Write("\nEnter Lastname : ");
-                string lastname = Console.ReadLine();
 
-                Console.Write("\nEnter Address : ");
-                string address = Console.ReadLine();
+                Console.WriteLine("Enter name of addressBook");
+                string addrBookName = Console.ReadLine();
 
-                Console.Write("\nEnter City : ");
-                string city = Console.ReadLine();
+                //Create object addressBookSystem for Class AddressBook
+                AddressBook addressBookSystem = new AddressBook();
+                Console.Write("\nPlease Enter number of Contacts to Add : ");
+                int contacts = Convert.ToInt32(Console.ReadLine());
 
-                Console.Write("\nEnter State : ");
-                string state = Console.ReadLine();
+                //Input contact values from user
+                while (contacts > 0)
+                {
+                    Console.Write("\nEnter Firstname : ");
+                    string firstname = Console.ReadLine();
+                    Console.Write("\nEnter Lastname : ");
+                    string lastname = Console.ReadLine();
 
-                Console.Write("\nEnter pincode : ");
-                int pincode = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("\nEnter Address : ");
+                    string address = Console.ReadLine();
 
-                Console.Write("\nEnter PhoneNumber : ");
-                long phone = Convert.ToInt64(Console.ReadLine());
+                    Console.Write("\nEnter City : ");
+                    string city = Console.ReadLine();
 
-                Console.Write("\nEnter Email : ");
-                string email = Console.ReadLine();
+                    Console.Write("\nEnter State : ");
+                    string state = Console.ReadLine();
 
-                //Call Method
-                addressBookSystem.CreateContact(firstname, lastname, address, city, state, pincode, phone, email);
-                contacts--;
-            }
+                    Console.Write("\nEnter pincode : ");
+                    int pincode = Convert.ToInt32(Console.ReadLine());
 
-            //Check if any modification is needed in the built addressbook
-            Console.WriteLine("Do you want to Modify?(Y/N)");
-            char ch = Convert.ToChar(Console.ReadLine());
-            if (ch == 'Y' || ch =='y')
-            {
-                addressBookSystem.Modify();
-            }
+                    Console.Write("\nEnter PhoneNumber : ");
+                    long phone = Convert.ToInt64(Console.ReadLine());
+
+                    Console.Write("\nEnter Email : ");
+                    string email = Console.ReadLine();
+
+                    //Call Method
+                    addressBookSystem.CreateContact(firstname, lastname, address, city, state, pincode, phone, email);
+                    contacts--;
+                }
+
+                //Check if any modification is needed in the built addressbook
+                Console.WriteLine("Do you want to Modify?(Y/N)");
+                char ch = Convert.ToChar(Console.ReadLine());
+                if (ch == 'Y' || ch == 'y')
+                {
+                    addressBookSystem.Modify();
+                }
+
+                //Implements IDictionary<TKey, TValue> interface.
+                numberNames.Add(addrBookName, addressBookSystem.ContactArray);
+                foreach (KeyValuePair<string, AddressBook[]> kvp in numberNames)
+                {
+                    Console.WriteLine("Key: {0}, Value: {1}", kvp.Key, kvp.Value[0].firstName);              
+                    //Console.WriteLine("Key: {0}, Value: {1}", kvp.Key, kvp.Value);
+                }
+                i++;
+
+            }   
 
         }
 

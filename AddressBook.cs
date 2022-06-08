@@ -13,7 +13,11 @@ namespace AddressBookSystem
 
         //second dictionary to store multiple contactbooks
         private Dictionary<string, AddressBook> addressBookDictionary = new Dictionary<string, AddressBook>();
-        
+
+        //Dictionaries to store filtered city and state information
+        private Dictionary<Contact, string> cityDictionary = new Dictionary<Contact, string>();
+        private Dictionary<Contact, string> stateDictionary = new Dictionary<Contact, string>();
+
         //Method to add contact info for each person
         public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber, string bookName)
         {
@@ -145,7 +149,7 @@ namespace AddressBookSystem
 
 
         //logic to attain values 
-        public List<Contact> GetListOfDictionaryKeys(string bookName)
+        public List<Contact> GetListOfDictionaryValues(string bookName)
         {
             List<Contact> book = new List<Contact>();
             foreach (var value in addressBookDictionary[bookName].addressBook.Values)
@@ -155,10 +159,21 @@ namespace AddressBookSystem
             return book;
         }
 
+        //logic to attain keys
+        public List<Contact> GetListOfDictionaryKeys(Dictionary<Contact, string> d)
+        {
+            List<Contact> book = new List<Contact>();
+            foreach (var value in d.Keys)
+            {
+                book.Add(value);
+            }
+            return book;
+        }
+
         //Logic for duplicate entry check
         public bool CheckDuplicateEntry(Contact c, string bookName)
         {
-            List<Contact> book = GetListOfDictionaryKeys(bookName);
+            List<Contact> book = GetListOfDictionaryValues(bookName);
             if (book.Any(b => b.Equals(c)))
             {
                 Console.ForegroundColor= ConsoleColor.Red;
@@ -170,15 +185,15 @@ namespace AddressBookSystem
         }
 
 
-        public List<Contact> GetListOfDictionaryValues(Dictionary<string, Contact> d)
-        {
-            List<Contact> book = new List<Contact>();
-            foreach (var value in d.Values)
-            {
-                book.Add(value);
-            }
-            return book;
-        }
+        //public List<Contact> GetListOfDictionaryValues1(Dictionary<string, Contact> d)
+        //{
+        //    List<Contact> book = new List<Contact>();
+        //    foreach (var value in d.Values)
+        //    {
+        //        book.Add(value);
+        //    }
+        //    return book;
+        //}
 
 
         //Logic/method to search Person by city
@@ -186,7 +201,8 @@ namespace AddressBookSystem
         {
             foreach (AddressBook addressbookobj in addressBookDictionary.Values)
             {
-                List<Contact> contactList = GetListOfDictionaryValues(addressbookobj.addressBook);
+                CreateCityDictionary();
+                List<Contact> contactList = GetListOfDictionaryKeys(addressbookobj.cityDictionary);
                 foreach (Contact contact in contactList.FindAll(c => c.City.Equals(city)).ToList())
                 {
                     Console.WriteLine(contact.ToString());
@@ -199,10 +215,35 @@ namespace AddressBookSystem
         {
             foreach (AddressBook addressbookobj in addressBookDictionary.Values)
             {
-                List<Contact> contactList = GetListOfDictionaryValues(addressbookobj.addressBook);
+                CreateStateDictionary();
+                List<Contact> contactList = GetListOfDictionaryKeys(addressbookobj.stateDictionary);
                 foreach (Contact contact in contactList.FindAll(c => c.State.Equals(state)).ToList())
                 {
                     Console.WriteLine(contact.ToString());
+                }
+            }
+        }
+
+        //method to create the required city dictionary
+        public void CreateCityDictionary()
+        {
+            foreach (AddressBook addressBookObj in addressBookDictionary.Values)
+            {
+                foreach (Contact contact in addressBookObj.addressBook.Values)
+                {
+                    addressBookObj.cityDictionary.Add(contact, contact.City);
+                }
+            }
+        }
+
+        //method to create the required state dictionary
+        public void CreateStateDictionary()
+        {
+            foreach (AddressBook addressBookObj in addressBookDictionary.Values)
+            {
+                foreach (Contact contact in addressBookObj.addressBook.Values)
+                {
+                    addressBookObj.stateDictionary.Add(contact, contact.State);
                 }
             }
         }

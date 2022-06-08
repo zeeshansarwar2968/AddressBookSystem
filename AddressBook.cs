@@ -17,19 +17,12 @@ namespace AddressBookSystem
         //Method to add contact info for each person
         public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber, string bookName)
         {
-            Contact contact = new Contact();
-            contact.FirstName = firstName;
-            contact.LastName = lastName;
-            contact.Address = address;
-            contact.City = city;
-            contact.State = state;
-            contact.Email = email;
-            contact.Zip = zip;
-            contact.PhoneNumber = phoneNumber;
+            Contact contact = new Contact(firstName, lastName, address, city, state, email, zip, phoneNumber);
             addressBookDictionary[bookName].addressBook.Add(contact.FirstName, contact);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nAdded Succesfully. \n");
             Console.ResetColor();
+           
         }
 
         //Method to display contact info for a person
@@ -74,7 +67,7 @@ namespace AddressBookSystem
             {
                 if (item.Key.Equals(name))
                 {
-                    Console.WriteLine("Choose the filed to edit \n1.First Name \n2.Last Name \n3.Address \n4.City \n5.State \n6.Email \n7.Zip \n8.Phone Number");
+                    Console.WriteLine("Choose the field to edit \n1.First Name \n2.Last Name \n3.Address \n4.City \n5.State \n6.Email \n7.Zip \n8.Phone Number");
                     int choice = Convert.ToInt32(Console.ReadLine());
                     switch (choice)
                     {
@@ -124,11 +117,17 @@ namespace AddressBookSystem
             if (addressBookDictionary[bookName].addressBook.ContainsKey(name))
             {
                 addressBookDictionary[bookName].addressBook.Remove(name);
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nDeleted Succesfully.\n");
+                Console.ResetColor();
+
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nNot Found, Try Again.\n");
+                Console.ResetColor();
+
             }
         }
 
@@ -143,6 +142,33 @@ namespace AddressBookSystem
         {
             return addressBookDictionary;
         }
+
+
+        //logic to attain keys 
+        public List<Contact> GetListOfDictionaryKeys(string bookName)
+        {
+            List<Contact> book = new List<Contact>();
+            foreach (var value in addressBookDictionary[bookName].addressBook.Values)
+            {
+                book.Add(value);
+            }
+            return book;
+        }
+
+        //Logic for duplicate entry check
+        public bool CheckDuplicateEntry(Contact c, string bookName)
+        {
+            List<Contact> book = GetListOfDictionaryKeys(bookName);
+            if (book.Any(b => b.Equals(c)))
+            {
+                Console.ForegroundColor= ConsoleColor.Red;
+                Console.WriteLine("Name already Exists.");
+                Console.ResetColor();  
+                return true;
+            }
+            return false;
+        }
+
     }
 
 }

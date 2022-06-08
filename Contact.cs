@@ -16,5 +16,34 @@ namespace AddressBookSystem
         public string Email { get; set; }
         public int Zip { get; set; }
         public long PhoneNumber { get; set; }
+
+        public Contact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Address = address;
+            City = city;
+            State = state;
+            Email = email;
+            Zip = zip;
+            PhoneNumber = phoneNumber;
+        }
+
+        //Equals method is intended to return true when another object is supplied which is semantically equal to current instance.
+        //GetHashCode method is intended to return an integer value which can be used as a hash code,
+        //i.e. key that accompanies the object when object is stored in a hashed data structure
+        public override bool Equals(object obj)
+        {
+            Contact contact = (Contact)obj;
+            if (contact == null)
+                return false;
+            else
+                return FirstName.Equals(contact.FirstName) && LastName.Equals(contact.LastName);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(FirstName, LastName);
+        }
     }
 }

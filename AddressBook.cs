@@ -6,201 +6,145 @@ using System.Threading.Tasks;
 
 namespace AddressBookSystem
 {
-    public interface IAddressBookSystem
+    class AddressBook : IContacts  //Using and inheriting from the Icnotacts interface created 
     {
-        //method declarations
-        void GetPersonalInfo();
-        void ListingContacts();
-        void RemovePeople();
-    }
-    public class AddressBook : IAddressBookSystem
-    {
-        //Created a LinkedList to store information about people
-        public static LinkedList<Person> people;
+        //First dictionary to store a simple contactbook
+        private Dictionary<string, Contact> addressBook = new Dictionary<string, Contact>();
 
-        //Static Constructor
-        static AddressBook()
+        //second dictionary to store multiple contactbooks
+        private Dictionary<string, AddressBook> addressBookDictionary = new Dictionary<string, AddressBook>();
+        
+        //Method to add contact info for each person
+        public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber, string bookName)
         {
-            people = new LinkedList<Person>();
+            Contact contact = new Contact();
+            contact.FirstName = firstName;
+            contact.LastName = lastName;
+            contact.Address = address;
+            contact.City = city;
+            contact.State = state;
+            contact.Email = email;
+            contact.Zip = zip;
+            contact.PhoneNumber = phoneNumber;
+            addressBookDictionary[bookName].addressBook.Add(contact.FirstName, contact);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nAdded Succesfully. \n");
+            Console.ResetColor();
         }
 
-        //class for contact info of each person
-        public class Person
+        //Method to display contact info for a person
+        public void ViewContact(string name, string bookName)
         {
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public string PhoneNumber { get; set; }
-            public string Addresses { get; set; }
-            public string City { get; set; }
-            public string State { get; set; }
-            public string ZipCode { get; set; }
-            public string PhoneNum { get; set; }
-            public string EmailId { get; set; }
-        }
-
-        //Getting the user details
-        public void GetPersonalInfo()
-        {
-            //new instance of person class to store personal cintact information
-            Person person = new Person();
-
-            Console.Write("Enter First Name: ");
-            person.FirstName = Console.ReadLine();
-
-            Console.Write("Enter Last Name: ");
-            person.LastName = Console.ReadLine();
-
-            Console.Write("Enter Address : ");
-            person.Addresses = Console.ReadLine();
-
-            Console.Write("Enter City : ");
-            person.City = Console.ReadLine();
-
-            Console.Write("Enter State : ");
-            person.State = Console.ReadLine();
-
-            Console.Write("Enter ZipCode: ");
-            person.ZipCode = Console.ReadLine();
-
-            Console.Write("Enter Phone Number: ");
-            person.PhoneNum = Console.ReadLine();
-
-            Console.Write("Enter EmailId: ");
-            person.EmailId = Console.ReadLine();
-
-            //Adding the contact object to the end of the list
-            people.AddLast(person);
-        }
-
-
-        //Method to print the details
-        public void PrintCustomer(Person person)
-        {
-            Console.WriteLine("First Name: " + person.FirstName);
-            Console.WriteLine("Last Name: " + person.LastName);
-            Console.WriteLine("Phone Number: " + person.PhoneNumber);
-            Console.WriteLine("Address : " + person.Addresses);
-            Console.WriteLine("City : " + person.City);
-            Console.WriteLine("State : " + person.State);
-            Console.WriteLine("ZipCode : " + person.ZipCode);
-            Console.WriteLine("Phone Number: " + person.PhoneNum);
-            Console.WriteLine("Email Id: " + person.EmailId);
-            Console.WriteLine("-------------------------------------------");
-        }
-        //Method to Modify the details
-        public void Modify()
-        {
-            if (people.Count != 0)
+            foreach (KeyValuePair<string, Contact> item in addressBookDictionary[bookName].addressBook)
             {
-                Console.Write("Enter the contact to modify:");
-                string Modified = Console.ReadLine();
-                foreach (var person in people)
+                if (item.Key.ToLower().Equals(name.ToLower()))
                 {
-                    if (person.FirstName.ToUpper() == Modified.ToUpper())
-                    {
-                        while (true)
-                        {
-                            Console.WriteLine("Enter the option to modify the property: ");
-                            Console.WriteLine("Enter 1 to Change First name ");
-                            Console.WriteLine("Enter 2 to Change Last name ");
-                            Console.WriteLine("Enter 3 to Change Phone Number ");
-                            Console.WriteLine("Enter 4 to Change Address ");
-                            Console.WriteLine("Enter 5 to Change City ");
-                            Console.WriteLine("Enter 6 to Change State ");
-                            Console.WriteLine("Enter 7 to Change Pincode ");
-                            Console.WriteLine("Enter 8 to Exit ");
-                            int Check = Convert.ToInt32(Console.ReadLine());
-                            switch (Check)
-                            {
-                                case 1:
-                                    Console.WriteLine("Enter the New First Name: ");
-                                    person.FirstName = Console.ReadLine();
-                                    break;
-                                case 2:
-                                    Console.WriteLine("Enter the New Last Name: ");
-                                    person.LastName = Console.ReadLine();
-                                    break;
-                                case 3:
-                                    Console.WriteLine("Enter the New Phone Number: ");
-                                    person.PhoneNum = Console.ReadLine();
-                                    break;
-                                case 4:
-                                    Console.WriteLine("Enter the New Address: ");
-                                    person.Addresses = Console.ReadLine();
-                                    break;
-                                case 5:
-                                    Console.WriteLine("Enter the New City: ");
-                                    person.City = Console.ReadLine();
-                                    break;
-                                case 6:
-                                    Console.WriteLine("Enter the New State: ");
-                                    person.State = Console.ReadLine();
-                                    break;
-                                case 7:
-                                    Console.WriteLine("Enter the New Pin-Code: ");
-                                    person.ZipCode = Console.ReadLine();
-                                    break;
-                                case 8:
-                                    return;
-
-                            }
-
-                        }
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please enter a  valid name to edit contact information!!");
-                    }
-
+                    Console.WriteLine("First Name : " + item.Value.FirstName);
+                    Console.WriteLine("Last Name : " + item.Value.LastName);
+                    Console.WriteLine("Address : " + item.Value.Address);
+                    Console.WriteLine("City : " + item.Value.City);
+                    Console.WriteLine("State : " + item.Value.State);
+                    Console.WriteLine("Email : " + item.Value.Email);
+                    Console.WriteLine("Zip : " + item.Value.Zip);
+                    Console.WriteLine("Phone Number : " + item.Value.PhoneNumber + "\n");
                 }
-
-
             }
         }
 
-
-        //Listing the user entered details or modified details
-        public void ListingContacts()
+        //Method to display contacts from a contactbook/addressbook
+        public void ViewContact(string bookName)
         {
-            if (people.Count == 0)
+            foreach (KeyValuePair<string, Contact> item in addressBookDictionary[bookName].addressBook)
             {
-                Console.WriteLine("Your address book is empty.");
-                Console.ReadKey();
-                return;
+                Console.WriteLine("First Name : " + item.Value.FirstName);
+                Console.WriteLine("Last Name : " + item.Value.LastName);
+                Console.WriteLine("Address : " + item.Value.Address);
+                Console.WriteLine("City : " + item.Value.City);
+                Console.WriteLine("State : " + item.Value.State);
+                Console.WriteLine("Email : " + item.Value.Email);
+                Console.WriteLine("Zip : " + item.Value.Zip);
+                Console.WriteLine("Phone Number : " + item.Value.PhoneNumber + "\n");
             }
-            Console.WriteLine("Here are the current people in your address book:\n");
-            foreach (var person in people)
-            {
-                PrintCustomer(person);
-            }
-            return;
-            Console.WriteLine("\nPress any key to continue.");
-
-            Console.ReadKey();
-
         }
 
-        //Removing the field using Lambda Function
-        public void RemovePeople()
+        //Method to edit the present addressbook/contact
+        public void EditContact(string name, string bookName)
         {
-            Console.WriteLine("Enter the first name of the person you would like to remove.");
-            string firstName = Console.ReadLine();
-            Person person = people.FirstOrDefault(x => x.FirstName.ToUpper() == firstName.ToUpper());
-            if (person == null)
+            foreach (KeyValuePair<string, Contact> item in addressBookDictionary[bookName].addressBook)
             {
-                Console.WriteLine("That person could not be found..");
-
-                return;
+                if (item.Key.Equals(name))
+                {
+                    Console.WriteLine("Choose the filed to edit \n1.First Name \n2.Last Name \n3.Address \n4.City \n5.State \n6.Email \n7.Zip \n8.Phone Number");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.Write("Enter New First Name :");
+                            item.Value.FirstName = Console.ReadLine();
+                            break;
+                        case 2:
+                            Console.Write("Enter New Last Name :");
+                            item.Value.LastName = Console.ReadLine();
+                            break;
+                        case 3:
+                            Console.Write("Enter New Address :");
+                            item.Value.Address = Console.ReadLine();
+                            break;
+                        case 4:
+                            Console.Write("Enter New City :");
+                            item.Value.City = Console.ReadLine();
+                            break;
+                        case 5:
+                            Console.Write("Enter New State :");
+                            item.Value.State = Console.ReadLine();
+                            break;
+                        case 6:
+                            Console.Write("Enter New Email :");
+                            item.Value.Email = Console.ReadLine();
+                            break;
+                        case 7:
+                            Console.Write("Enter New Zip :");
+                            item.Value.Zip = Convert.ToInt32(Console.ReadLine());
+                            break;
+                        case 8:
+                            Console.Write("Enter New Phone Number :");
+                            item.Value.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                            break;
+                    }
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("\nEdited Successfully.\n");
+                    Console.ResetColor();
+                }
             }
-            Console.WriteLine("Are you sure you want to remove this person from your address book? (Y/N)");         
+        }
 
-            if (Console.ReadKey().Key == ConsoleKey.Y)
+        //Logic to delete contacts from the book
+        public void DeleteContact(string name, string bookName)
+        {
+            if (addressBookDictionary[bookName].addressBook.ContainsKey(name))
             {
-                people.Remove(person);
-                Console.WriteLine("\nPerson removed ");
-
+                addressBookDictionary[bookName].addressBook.Remove(name);
+                Console.WriteLine("\nDeleted Succesfully.\n");
             }
+            else
+            {
+                Console.WriteLine("\nNot Found, Try Again.\n");
+            }
+        }
+
+        //Add a book to the address dictionary/database
+        public void AddAddressBook(string bookName)
+        {
+            AddressBook addressBook = new AddressBook();
+            addressBookDictionary.Add(bookName, addressBook);
+            Console.WriteLine("AddressBook Created.");
+        }
+        public Dictionary<string, AddressBook> GetAddressBook()
+        {
+            return addressBookDictionary;
         }
     }
+
 }
+    
+    

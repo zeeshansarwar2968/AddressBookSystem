@@ -144,7 +144,7 @@ namespace AddressBookSystem
         }
 
 
-        //logic to attain keys 
+        //logic to attain values 
         public List<Contact> GetListOfDictionaryKeys(string bookName)
         {
             List<Contact> book = new List<Contact>();
@@ -167,6 +167,44 @@ namespace AddressBookSystem
                 return true;
             }
             return false;
+        }
+
+
+        public List<Contact> GetListOfDictionaryValues(Dictionary<string, Contact> d)
+        {
+            List<Contact> book = new List<Contact>();
+            foreach (var value in d.Values)
+            {
+                book.Add(value);
+            }
+            return book;
+        }
+
+
+        //Logic/method to search Person by city
+        public void SearchPersonByCity(string city)
+        {
+            foreach (AddressBook addressbookobj in addressBookDictionary.Values)
+            {
+                List<Contact> contactList = GetListOfDictionaryValues(addressbookobj.addressBook);
+                foreach (Contact contact in contactList.FindAll(c => c.City.Equals(city)).ToList())
+                {
+                    Console.WriteLine(contact.ToString());
+                }
+            }
+        }
+
+        //Logic/method to search Person by state
+        public void SearchPersonByState(string state)
+        {
+            foreach (AddressBook addressbookobj in addressBookDictionary.Values)
+            {
+                List<Contact> contactList = GetListOfDictionaryValues(addressbookobj.addressBook);
+                foreach (Contact contact in contactList.FindAll(c => c.State.Equals(state)).ToList())
+                {
+                    Console.WriteLine(contact.ToString());
+                }
+            }
         }
 
     }

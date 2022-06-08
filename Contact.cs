@@ -45,5 +45,12 @@ namespace AddressBookSystem
         {
             return HashCode.Combine(FirstName, LastName);
         }
+
+
+        //we are overriding the original functionality of ToString method to return a custom requirement
+        public override string ToString()
+        {
+            return "First Name :" + FirstName + "\nLast Name : " + LastName + "\nCity : " + City + "\nState : " + State + "\nEmail : " + Email + "\nZip : " + Zip + "\nPhone Number : " + PhoneNumber + "\n";
+        }
     }
 }

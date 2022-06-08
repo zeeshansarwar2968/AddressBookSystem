@@ -8,8 +8,9 @@ namespace AddressBookSystem
         {
             //Program header
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("\t\t\t\tWelcome to Address Book Program");
-            Console.WriteLine("\t\t\t----------------------------------------------");
+            Console.WriteLine("\t\t\t  ----------------------------------------------");
+            Console.WriteLine("\t\t\t\t  Welcome to Address Book Program");
+            Console.WriteLine("\t\t\t  ----------------------------------------------");
             Console.ResetColor();
 
             //Object of class AddressBook
@@ -34,12 +35,16 @@ namespace AddressBookSystem
             do
             {
                 Console.WriteLine($"Working On {bookName} AddressBook\n");
-                Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.View A Contact \n5.View All Contacts \n6.Add New AddressBook \n7.Switch AddressBook \n0.Exit Application\n");
+                Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.View A Contact \n5.View All Contacts \n6.Add New AddressBook \n7.Switch AddressBook \n8.Search Contact by city/state \n0.Exit Application\n");
                 choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
                     case 0:
-                        Console.WriteLine("Thank You For Using Address Book System.");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("\t\t\t\t----------------------------------------------");                        
+                        Console.WriteLine("\t\t\t\t   Thank You For Using Address Book System.");
+                        Console.WriteLine("\t\t\t\t----------------------------------------------");
+                        Console.ResetColor();
                         break;
 
                     case 1:
@@ -117,16 +122,41 @@ namespace AddressBookSystem
                             }
                             else
                             {
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("No such AddressBook found. Try Again.");
+                                Console.ResetColor();
                             }
                         }
                         break;
-                    
+
+                    case 8:
+                        Console.WriteLine("Would You Like To \n1.Search by city \n2.Search by state");
+                        int opt = Convert.ToInt32(Console.ReadLine());
+                        switch (opt)
+                        {
+                            case 1:
+                                Console.Write("Enter name of city : ");
+                                addressBook.SearchPersonByCity(Console.ReadLine());
+                                break;
+                            case 2:
+                                Console.Write("Enter name of state : ");
+                                addressBook.SearchPersonByState(Console.ReadLine());
+                                break;
+                            default:
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Invalid Input. Enter Either 1 or 2");
+                                Console.ResetColor();
+                                break;
+                        }
+                        break;
+
                     default:
-                        Console.WriteLine("Invalid Entry. Enter value between 0 to 7");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Invalid Entry. Enter value between 0 to 8");
+                        Console.ResetColor();
                         break;
                 }
-            } while (choice != 8);
+            } while (choice != 0);
         }
     }
 }

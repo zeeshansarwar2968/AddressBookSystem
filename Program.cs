@@ -188,6 +188,12 @@ namespace AddressBookSystem
                         fileIO.ReadFromFile();
                         break;
 
+                    case 12:
+                        CSVHandler handler = new CSVHandler();
+                        handler.WriteToFile(addressBook.addressBookDictionary);
+                        handler.ReadFromFile();
+                        break;
+
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid Entry. Enter value between 0 to 8");

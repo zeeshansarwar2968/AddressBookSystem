@@ -194,6 +194,12 @@ namespace AddressBookSystem
                         handler.ReadFromFile();
                         break;
 
+                    case 13:
+                        JSONOperation json = new JSONOperation();
+                        json.WriteToFile(addressBook.addressBookDictionary);
+                        json.ReadFromFile();
+                        break;
+
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid Entry. Enter value between 0 to 8");

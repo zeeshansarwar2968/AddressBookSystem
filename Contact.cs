@@ -32,7 +32,7 @@ namespace AddressBookSystem
         //Equals method is intended to return true when another object is supplied which is semantically equal to current instance.
         //GetHashCode method is intended to return an integer value which can be used as a hash code,
         //i.e. key that accompanies the object when object is stored in a hashed data structure
-        public override bool Equals(object obj)
+        public override bool Equals(object obj)  //originally Determines whether the specified object instances are considered equal.
         {
             Contact contact = (Contact)obj;
             if (contact == null)
@@ -48,7 +48,7 @@ namespace AddressBookSystem
 
 
         //we are overriding the original functionality of ToString method to return a custom requirement
-        public override string ToString()
+        public override string ToString()  //Originally returns A string that represents the current object.
         {
             return "First Name :" + FirstName + "\nLast Name : " + LastName + "\nCity : " + City + "\nState : " + State + "\nEmail : " + Email + "\nZip : " + Zip + "\nPhone Number : " + PhoneNumber + "\n";
         }

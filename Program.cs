@@ -36,7 +36,7 @@ namespace AddressBookSystem
             do
             {
                 Console.WriteLine($"Working On {bookName} AddressBook\n");
-                Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.View A Contact \n5.View All Contacts \n6.Add New AddressBook \n7.Switch AddressBook \n8.Search Contact by city/state \n9.Count by State or City ");
+                Console.WriteLine("Choose An Option \n1.Add New Contact \n2.Edit Existing Contact \n3.Delete A Contact \n4.View A Contact \n5.View All Contacts \n6.Add New AddressBook \n7.Switch AddressBook \n8.Search Contact by city/state \n9.Count by State or City \n10.Sort");
                 Console.ForegroundColor= ConsoleColor.Blue;
                 Console.WriteLine("0.Exit Application\n");
                 Console.ResetColor();
@@ -160,7 +160,26 @@ namespace AddressBookSystem
                         break;
 
                     case 10:
-                        addressBook.SortByName();
+                        Console.WriteLine("\n1.Sort By Name \n2.Sort By City \n3.Sort By State \n4.Sort By Zip");
+                        int ch = Convert.ToInt32(Console.ReadLine());
+                        switch (ch)
+                        {
+                            case 1:
+                                addressBook.SortByName();
+                                break;
+                            case 2:
+                                addressBook.SortByCity();
+                                break;
+                            case 3:
+                                addressBook.SortByState();
+                                break;
+                            case 4:
+                                addressBook.SortByZip();
+                                break;
+                            default:
+                                Console.WriteLine("Invalid Choice");
+                                break;
+                        }
                         break;
 
                     default:

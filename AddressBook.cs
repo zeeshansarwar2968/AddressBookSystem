@@ -9,10 +9,10 @@ namespace AddressBookSystem
     class AddressBook : IContacts  //Using and inheriting from the Icnotacts interface created 
     {
         //First dictionary to store a simple contactbook
-        private Dictionary<string, Contact> addressBook = new Dictionary<string, Contact>();
+        internal Dictionary<string, Contact> addressBook = new Dictionary<string, Contact>();
 
         //second dictionary to store multiple contactbooks
-        private Dictionary<string, AddressBook> addressBookDictionary = new Dictionary<string, AddressBook>();
+        internal Dictionary<string, AddressBook> addressBookDictionary = new Dictionary<string, AddressBook>();
 
         //Dictionaries to store filtered city and state information
         private Dictionary<Contact, string> cityDictionary = new Dictionary<Contact, string>();

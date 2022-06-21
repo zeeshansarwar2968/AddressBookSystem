@@ -182,6 +182,12 @@ namespace AddressBookSystem
                         }
                         break;
 
+                    case 11:
+                        FileIOOperation fileIO = new FileIOOperation();
+                        fileIO.WriteToFile(addressBook.addressBookDictionary);
+                        fileIO.ReadFromFile();
+                        break;
+
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid Entry. Enter value between 0 to 8");
